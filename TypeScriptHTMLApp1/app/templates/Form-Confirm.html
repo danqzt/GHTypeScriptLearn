@@ -1,0 +1,82 @@
+﻿
+
+<div ng-controller="FormConfirmationController as vm" class="site-request">
+
+
+   
+
+    <div class="row" ng-hide="vm.completed">
+        <button class="btn btn-sm pull-right back-button " ng-click="vm.previousStep()" type="button">
+            <i class="fa fa-chevron-circle-left"></i>
+            Back
+        </button>
+        <h2>
+            <i class="fa fa-dot-circle-o"></i>
+            Please confirm all details for your {{ vm.site.type.name }} Site are correct.
+        </h2>
+
+    </div>
+
+
+    <div class="message-panel panel-success" ng-if="vm.completed">
+        <div class="panel-heading">
+            <h3>
+                <i class="fa fa-check-square"></i>
+                Your submissions has been recieved
+            </h3>
+        </div>
+        <div class="panel-body">Thank you for your submission. You will be recieve a confirmation notification in your inbox.</div>
+
+        <div class="request-id"><center>Confirmation number: <strong>{{ vm.confirmationNumber }}</strong></center></div>
+    </div>
+  
+    <div class="message-panel panel-danger" ng-if="vm.error != '' && vm.completed == false">
+        <div class="panel-heading">
+            <h3>An error occurred</h3>
+        </div>
+        <div class="panel-body">{{vm.error}}</div>
+
+        <button type="button" ng-click="vm.submitRequest()" class="btn btn-primary back-button" ng-disabled="vm.submitting">
+            <i class="fa fa-repeat"></i>
+            Try again
+        </button>
+    </div>
+
+
+    <table class="table table-striped">
+        <tbody>
+            <tr ng-repeat="p in vm.submissionProperties">
+                <th>{{ p.name }}</th>
+                <td ng-if="p.isImage">
+                    <img ng-src="{{p.value}}" />
+                </td>
+                <td ng-if="!p.isImage">
+                    {{ p.value }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <div class="navigation-menu" ng-hide="vm.completed">
+        <button type="button" class="col-md-2 btn back-button btn-sm " ng-click="vm.previousStep()">
+            <i class="fa fa-chevron-circle-left"></i>
+            Back
+        </button>
+        <button class="btn btn-primary next-button" ng-click="vm.submitRequest()" type="button" ng-disabled="vm.submitted">
+            Submit Request
+            <i class="fa fa-chevron-circle-right"></i>
+        </button>
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+
+

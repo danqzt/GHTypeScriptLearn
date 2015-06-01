@@ -1,0 +1,154 @@
+﻿
+<div ng-controller="FormInfoController as vm" class="site-request">
+
+    <div class="row">
+        <button class="btn back-button btn-sm pull-right " ng-click="vm.previousStep()" type="button">
+            <i class="fa fa-chevron-circle-left"></i>
+            Back
+        </button>
+        <h2>
+            <i class="fa fa-dot-circle-o"></i>
+            Complete {{ vm.site.type.name }}
+            <span ng-hide="!vm.site.category">({{ vm.site.category.name }})</span>
+            Site details
+        </h2>
+
+    </div>
+
+
+    <div ng-form="" name="request_form" class="form form-horizontal" novalidate="novalidate"  >
+
+       
+        <div class="form-group row" ng-show="{{vm.site.type.canBePublic}}">
+            <label class="col-sm-2 control-label">Visibility</label>
+            <div class="col-sm-10">
+                <div ng-repeat="v in vm.visibilityTypes">
+                    <label>
+                        <strong>{{ v.name }} </strong>
+                        <input type="radio" ng-model="vm.site.visibility" name="site_visibility" value="{{v.name}}" />
+                        <span style="display:block; margin-bottom:20px; font-weight:normal;">{{ v.description }}</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 control-label">Title</label>
+            <div class="col-sm-10">
+                <p><em>What title would you like to give the site?.</em></p>
+                <input type="text" name="site_title" ng-model="vm.site.title" class="form-control"
+                       ng-keyup="vm.titleKeyListener($event);" required />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 control-label">URL</label>
+            <div class="col-sm-10">
+                <p><em>URL users will be able to access the site by.</em></p>
+                <div style="float:left; padding-top:10px; margin-right:3px;">{{ vm.site.type.baseAddress}}</div>
+                <input type="text" name="site_name" ng-model="vm.site.name" style="width:260px;" class="form-control" required />
+
+                <div class="panel panel-danger" ng-if="vm.urlIsTaken" style="margin-top:20px;">
+                    <div class="panel-heading">
+                        <h3>The url is already taken. Please modify and try again.</h3>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="form-group row">
+            <label class="col-sm-2 control-label">Description</label>
+            <div class="col-sm-10">
+                <p><em>How would you describe the site?.</em></p>
+                <textarea name="site_description" ng-model="vm.site.description" class="form-control" required></textarea>
+            </div>
+        </div>
+
+
+
+
+
+        <div class="form-group row" >
+            <label class="col-sm-2 control-label">Logo</label>
+            <div class="col-sm-10">
+                <p><em>Please select the default logo. You can change it later in the site.</em></p>
+                <ul class="logo-list row">
+                    <li ng-repeat="i in vm.siteLogoOptions">
+                        <a ng-click="vm.selectLogo(i)" ng-class="vm.site.logo.url == i.url ? 'selected' : ''" title="Select logo">
+                            <span><img ng-src="{{i.url}}" alt=""></span>
+                        </a>
+                    </li>
+                </ul>
+                <input type="text" name="site_logo" ng-model="vm.site.logo.url" ng-hide="true" required />
+            </div>
+        </div>
+
+
+        <div class="form-group row" ng-show="vm.siteTemplateTypes.length > 1" >
+            <label class="col-sm-2 control-label">Template</label>
+            <div class="col-sm-10">
+                <p><em>Please select the site template you wish to apply.</em></p>
+                <select ng-model="vm.site.template"
+                        required ng-options="template.name for template in vm.siteTemplateTypes"></select>
+            </div>
+        </div>
+
+        <div class="form-group row" ng-hide="vm.siteIsPublic() || true">
+            <label class="col-sm-2 control-label">Members</label>
+            <div class="col-sm-10">
+                <p><em>Add team site members by clicking the open book icon.</em></p>
+                <div id="peoplePickerDiv"></div>
+                <input type="text" name="site_members" ng-model="vm.site.memberKeys"  ng-hide="true" ng-if="!vm.siteIsPublic()" />
+                <!--<input type="text" name="site_members" ng-model="vm.site.memberKeys" required ng-hide="true" ng-if="!vm.siteIsPublic()" />-->
+            </div>
+        </div>
+
+
+        <div class="form-group row" ng-hide="true" >
+            <label class="col-sm-2 control-label">Keywords</label>
+            <div class="col-sm-10">
+                <p><em>Optional keyword about the community.</em></p>
+                Add members here
+            </div>
+        </div>
+
+
+        <div class="navigation-menu">
+            <button class="col-md-2 btn back-button btn-sm " ng-click="vm.previousStep()" type="button">
+                <i class="fa fa-chevron-circle-left"></i>
+                Back
+            </button>
+            <button class="btn btn-primary next-button" ng-click="vm.nextStep()" ng-disabled="!request_form.$valid || vm.submitting" type="button">
+                Review Sumbission
+                <i class="fa fa-chevron-circle-right"></i>
+            </button>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+<style type="text/css">
+    #peoplePickerDiv input.sp-peoplepicker-editorInput {
+        border: 0 !important;
+    }
+    #peoplePickerDiv_TopSpan{ background-color:#fff;}
+    #peoplePickerDiv_TopSpan_InitialHelpText{ line-height:34px; }
+</style>
+
+
+
+
+
+
+
+
+

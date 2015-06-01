@@ -1,0 +1,53 @@
+﻿
+
+<div ng-controller="FormCategoriesController as vm" class="site-request">
+
+    <div class="row">
+        <button class="btn btn-sm pull-right back-button " ng-click="vm.previousStep()" type="button">
+            <i class="fa fa-chevron-circle-left"></i>
+            Back
+        </button>
+        <h2>
+            <i class="fa fa-dot-circle-o"></i>
+            Choose a category for your {{ vm.site.type.name }} Site
+        </h2>
+
+    </div>
+
+
+    <div class="row">
+        <div ng-repeat="c in vm.siteCategories" class="col-md-6">
+            <div class="padded-col">
+                <div class="form-group row">
+                    <div class="col-sm-8">
+                        <label class="control-label">{{ c.name }}</label>
+                        <div>{{ c.description }}</div><br />
+                    </div>
+                    <button type="button" class="btn btn-primary  btn-sm pull-right" ng-click="vm.selectCategory(c)">Select</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation-menu">
+        <button type="button" class="col-md-2 btn btn-sm  back-button " ng-click="vm.previousStep()" style="">
+            <i class="fa fa-chevron-circle-left"></i>
+            Back
+        </button>
+        <button type="button" class="col-md-2 btn btn-sm  back-button " ng-click="vm.createGroups()" style="display:none">
+            <i class="fa fa-chevron-circle-left"></i>
+            Create Groups
+        </button>
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
